@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
+import foodRouter from "./routes/foodRoute.js";
 
 // app config
 const app = express();
@@ -18,6 +19,13 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("Hare krishna buddy");
 });
+
+// Routes
+//api endpoints
+app.use("/api/food", foodRouter); // handle food related queries add,
+app.use("/images", express.static("uploads"));
+
+// Start the server
 
 app.listen(PORT, () => {
   console.log(`listening on port = ${PORT}`);
