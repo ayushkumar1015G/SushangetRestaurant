@@ -1,7 +1,7 @@
 import React from 'react'
 import './Order.css'
 
-const Orders = () => {
+const Orders = ({url}) => {
   return (
     <div>Orders</div>
   )
