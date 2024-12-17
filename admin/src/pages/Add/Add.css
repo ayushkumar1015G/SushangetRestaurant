@@ -1,0 +1,48 @@
+.add {
+    width: 70%;
+    margin-left: max(5vw, 25px);
+    margin-top: 50px;
+    color: #6d6d6d;
+    font-size: 16px;
+  }
+  
+  .add form {
+    gap: 20px;
+    display: flex; /* Use flexbox for easier layout */
+    flex-wrap: wrap; /* Allow elements to wrap to the next line */
+  }
+  
+  .add-img-upload img {
+    width: 120px;
+  }
+  
+  .add-product-name,
+  .add-product-discription {
+    width: max(40%, 280px);
+  }
+  
+  .add-product-name input,
+  .add-product-discription textarea {
+    padding: 10px;
+  }
+  
+  .add-category-price {
+    display: flex; /* Align category and price side-by-side */
+    align-items: center; /* Vertically center elements */
+    gap: 20px; /* Add spacing between category and price */
+  }
+  
+  .add-category-price select,
+  .add-category-price input {
+    max-width: 120px;
+    padding: 10px;
+  }
+  
+  .add-btn {
+    max-width: 120px;
+    border: none;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
