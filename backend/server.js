@@ -2,7 +2,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
+
+//Routers import
 import foodRouter from "./routes/foodRoute.js";
+import userRouter from "./routes/userRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
+
 
 // app config
 const app = express();
@@ -23,7 +29,10 @@ app.get("/", (req, res) => {
 // Routes
 //api endpoints
 app.use("/api/food", foodRouter); // handle food related queries add,
+app.use("/api/user", userRouter); // handle user related queries add
+app.use("/api/cart", cartRouter); // handle cart related queries add
 app.use("/images", express.static("uploads"));
+app.use("/api/order", orderRouter); // handle order related queries add
 
 // Start the server
 

@@ -1,15 +1,27 @@
+/* eslint-disable react/prop-types */
 import "./Navbar.css";
 
 import {assets} from "../../assets/assets.js";
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useContext, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {StoreContext} from "../../context/StoreContext.jsx";
 
-function Navbar() {
+function Navbar({setShowLogin}) {
   const [menu, setMenu] = useState("home");
+  const navigate = useNavigate();
+  const {getTotalCartAmount, token, setToken} = useContext(StoreContext);
+
+  const Logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
-      <img src={assets.logo} alt="" className="logo" />
+      <Link to={"/"}>
+        <img src={assets.logo} alt="" className="logo" />
+      </Link>
       <ul className="navbar-menu">
         <Link
           to={"/"}
@@ -45,10 +57,35 @@ function Navbar() {
       <div className="navbar-right">
         <img src={assets.search_icon} alt="" />
         <div className="navbar-search-icon">
-          <img src={assets.basket_icon} alt="" />
-          <div className="dot"></div>
+          <Link to={"/cart"}>
+            <img src={assets.basket_icon} alt="" />
+          </Link>
+          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        <button>Sign In</button>
+        {!token ? (
+          <button
+            onClick={() => {
+              setShowLogin(true);
+            }}
+          >
+            Sign In
+          </button>
+        ) : (
+          <div className="navbar-profile">
+            <img src={assets.profile_icon} alt="" />
+            <ul className="nav-profile-dropdown">
+              <li>
+                <img src={assets.bag_icon} alt="" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={Logout}>
+                <img src={assets.logout_icon} alt="" />
+                <p>Logout</p>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
