@@ -76,7 +76,9 @@ function Navbar({setShowLogin}) {
             <ul className="nav-profile-dropdown">
               <li>
                 <img src={assets.bag_icon} alt="" />
-                <p>Orders</p>
+                <Link to={"/myorders"}>
+                  <p>Orders</p>
+                </Link>
               </li>
               <hr />
               <li onClick={Logout}>

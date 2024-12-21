@@ -7,7 +7,7 @@ import {StoreContext} from "../../context/StoreContext";
 // eslint-disable-next-line react/prop-types
 function LoginPopup({setShowLogin}) {
   const {url, token, setToken} = useContext(StoreContext);
-  const [currentState, setCurrentState] = useState("SignUp");
+  const [currentState, setCurrentState] = useState("Login");
   const [data, setData] = useState({
     name: "",
     email: "",

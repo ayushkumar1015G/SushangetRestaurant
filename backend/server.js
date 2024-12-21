@@ -9,7 +9,6 @@ import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
-
 // app config
 const app = express();
 const PORT = 4000;
@@ -31,8 +30,8 @@ app.get("/", (req, res) => {
 app.use("/api/food", foodRouter); // handle food related queries add,
 app.use("/api/user", userRouter); // handle user related queries add
 app.use("/api/cart", cartRouter); // handle cart related queries add
-app.use("/images", express.static("uploads"));
 app.use("/api/order", orderRouter); // handle order related queries add
+app.use("/images", express.static("uploads"));
 
 // Start the server
 
