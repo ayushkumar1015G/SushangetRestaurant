@@ -1,11 +1,11 @@
 import {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 import "./PlaceOrder.css";
 import {StoreContext} from "../../context/StoreContext";
-import axios from "axios";
 
-import {useNavigate} from "react-router-dom";
-
-function PlaceOrder() {
+import {toast} from "react-toastify";
+const PlaceOrder = () => {
   const {getTotalCartAmount, token, food_list, cartItems, url} =
     useContext(StoreContext);
   const navigate = useNavigate();
@@ -33,22 +33,23 @@ function PlaceOrder() {
     if (!token || getTotalCartAmount() === 0) {
       navigate("/cart");
     }
-  }, [token, getTotalCartAmount]);
+  }, [token, getTotalCartAmount, navigate]);
 
   const placeOrder = async (event) => {
     event.preventDefault();
     try {
-      let orderItems = food_list
+      const orderItems = food_list
         .filter((item) => cartItems[item._id] > 0)
         .map((item) => ({
-          ...item,
+          name: item.name,
+          price: item.price,
           quantity: cartItems[item._id],
         }));
 
-      let orderData = {
+      const orderData = {
         address: data,
         items: orderItems,
-        amount: getTotalCartAmount() + 2,
+        amount: getTotalCartAmount() + 2, // Include delivery fee
       };
 
       const response = await axios.post(`${url}/api/order/place`, orderData, {
@@ -56,9 +57,51 @@ function PlaceOrder() {
       });
 
       if (response.data.success) {
-        const {session_url} = response.data;
-        window.location.replace(session_url);
-        // console.log(response.data.data);
+        const razorpayOptions = {
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+          amount: response.data.data.amount, // Amount in paise
+          currency: response.data.data.currency,
+          name: "Anurag's Store",
+          description: "Order Payment",
+          order_id: response.data.data.id, // Order ID from backend
+          handler: async (paymentResponse) => {
+            try {
+              const verifyResponse = await axios.post(
+                `${url}/api/order/verify`,
+                {
+                  razorpay_order_id: paymentResponse.razorpay_order_id,
+                  razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                  razorpay_signature: paymentResponse.razorpay_signature,
+                  orderId: response.data.orderId,
+                },
+                {headers: {token}}
+              );
+
+              if (verifyResponse.data.success) {
+                toast.success("Payment Successful!");
+                navigate("/myorders");
+              } else {
+                toast.error(
+                  "Payment verification failed. Please contact support."
+                );
+              }
+            } catch (error) {
+              console.error("Payment verification error:", error);
+              toast.error("Error in verifying payment. Please try again.");
+            }
+          },
+          prefill: {
+            name: `${data.firstName} ${data.lastName}`,
+            email: data.email,
+            contact: data.phone,
+          },
+          theme: {
+            color: "#5f63b8",
+          },
+        };
+
+        const rzp = new window.Razorpay(razorpayOptions);
+        rzp.open();
       } else {
         setError("Failed to place order. Please try again.");
       }
@@ -179,6 +222,6 @@ function PlaceOrder() {
       </div>
     </form>
   );
-}
+};
 
 export default PlaceOrder;

@@ -11,7 +11,7 @@ function Header() {
           veritatis, a expedita optio. In odio doloremque sunt nobis neque
           eligendi?
         </p>
-        <button>View menu</button>
+        <a href="#explore-menu">View menu</a>
       </div>
     </div>
   );

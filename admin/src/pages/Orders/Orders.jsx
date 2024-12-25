@@ -38,6 +38,21 @@ const Orders = ({url}) => {
     }
   };
 
+  const removeOrder = async (order) => {
+    try {
+      const response = await axios.post(`${url}/api/order/remove`, {
+        orderId: order._id,
+      });
+      if (response.data.success) {
+        fetchAllOrders();
+      } else {
+        console.error("Failed to delete order:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
   useEffect(() => {
     fetchAllOrders();
   }, []);
@@ -80,6 +95,17 @@ const Orders = ({url}) => {
               <option value="Out for Delivery">Out for Delivery</option>
               <option value="Delivered">Delivered</option>
             </select>
+            {order.status === "Delivered" ? (
+              <button
+                className="my-orders-orderbutton"
+                onClick={() => removeOrder(order)}
+              >
+                {" "}
+                Remove
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         ))}
       </div>
@@ -88,3 +114,30 @@ const Orders = ({url}) => {
 };
 
 export default Orders;
+
+// <>
+//   {" "}
+//   <div key={index} className="my-orders-order">
+//     <img src={assets.parcel_icon} alt="Parcel Icon" />
+//     <p>
+//       {order.items.map((item, itemIndex) => (
+//         <span key={itemIndex}>
+//           {item.name} x {item.quantity}
+//           {itemIndex !== order.items.length - 1 && ", "}
+//         </span>
+//       ))}
+//     </p>
+//     <p>${order.amount}.00</p>
+//     <p>Items: {order.items.length}</p>
+//     <p>
+//       <span>&#x25cf;</span> <b>{order.status}</b>
+//     </p>
+//     <button
+//       onClick={() => {
+//         removeOrder(order);
+//       }}
+//     >
+//       Remove
+//     </button>
+//   </div>
+// </>;

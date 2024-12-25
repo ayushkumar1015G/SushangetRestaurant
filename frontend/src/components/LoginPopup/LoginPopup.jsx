@@ -4,9 +4,10 @@ import {assets} from "../../assets/assets";
 import axios from "axios";
 import {StoreContext} from "../../context/StoreContext";
 
+import {toast} from "react-toastify";
 // eslint-disable-next-line react/prop-types
 function LoginPopup({setShowLogin}) {
-  const {url, token, setToken} = useContext(StoreContext);
+  const {url, token, setToken, setName} = useContext(StoreContext);
   const [currentState, setCurrentState] = useState("Login");
   const [data, setData] = useState({
     name: "",
@@ -28,11 +29,13 @@ function LoginPopup({setShowLogin}) {
 
       if (response.data.success) {
         setToken(response.data.token);
+        setName(response.data.name);
         console.log(token);
         localStorage.setItem("token", response.data.token);
         setShowLogin(false);
+        toast.success(`${currentState} Successful!`);
       } else {
-        alert(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error("Error during API call:", error.message);

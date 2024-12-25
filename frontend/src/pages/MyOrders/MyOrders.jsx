@@ -5,9 +5,11 @@ import axios from "axios";
 import {assets} from "../../assets/assets";
 import {useNavigate} from "react-router-dom";
 
+import {toast} from "react-toastify";
+
 const MyOrders = () => {
   const [data, setData] = useState([]);
-  const {url, token} = useContext(StoreContext);
+  const {url, token, setCartItems} = useContext(StoreContext);
   const navigate = useNavigate();
 
   // Function to fetch user orders
@@ -15,15 +17,12 @@ const MyOrders = () => {
     try {
       const response = await axios.post(
         `${url}/api/order/userorders`,
-        // {userId: "6763f2bac2e21f8ef0f6635e"}, // require used id but may be that come through payment
-        {},
-        // console.log(token),
-        {headers: token} // Correct header
-      );
-      console.log("in fetchOrders" + response.data.message);
 
+        {token: token}
+      );
       if (response.data.success) {
         setData(response.data.data || []);
+        setCartItems([]);
       } else {
         console.error("Failed to fetch orders:", response.data.message);
       }
@@ -40,7 +39,6 @@ const MyOrders = () => {
   // Fetch orders on component mount or when token changes
   useEffect(() => {
     if (token) {
-      console.log("hari and calleing fetched orders");
       fetchOrders();
     }
   }, [token]);

@@ -1,14 +1,16 @@
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 4%;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4%;
 }
 
-.navbar .logo{
-    width: max(10%,80px);
+.navbar .logo {
+  width: max(6%, 80px);
+  border-radius: 100%;
 }
 
-.navbar .profile{
-    width: 40px;
+.navbar .profile {
+  width: 40px;
+  border-radius: 50%;
 }

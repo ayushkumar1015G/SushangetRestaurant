@@ -6,7 +6,7 @@ function Footer() {
     <div className="footer" id="footer">
       <div className="footer-content">
         <div className="footer-content-left">
-          <img src={assets.logo} alt="" />
+          <img src={assets.sushLogo} className="footer-logo-img" alt="" />
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque,
             voluptatibus! Ad corporis laborum saepe, libero, quod esse eum

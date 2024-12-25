@@ -29,7 +29,7 @@
   font-size: 1vw;
 }
 
-.header-contents button {
+.header-contents a {
   border: none;
   color: #747474;
   font-weight: 500;
@@ -37,6 +37,12 @@
   background-color: white;
   font-size: max(1vw, 13px);
   border-radius: 15px;
+  transition: all 0.5s ease; /* Add transition for all properties */
+}
+
+.header-contents a:hover {
+  color: black;
+  transform: scale(1.05); /* Enlarge the element on hover */
 }
 
 @media (max-width: 1050px) {

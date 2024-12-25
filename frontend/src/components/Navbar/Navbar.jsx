@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import {toast} from "react-toastify";
 import "./Navbar.css";
 
 import {assets} from "../../assets/assets.js";
@@ -9,18 +10,18 @@ import {StoreContext} from "../../context/StoreContext.jsx";
 function Navbar({setShowLogin}) {
   const [menu, setMenu] = useState("home");
   const navigate = useNavigate();
-  const {getTotalCartAmount, token, setToken} = useContext(StoreContext);
-
+  const {getTotalCartAmount, name, token, setToken} = useContext(StoreContext);
   const Logout = () => {
     localStorage.removeItem("token");
     setToken("");
+    toast.success("Logged out successfully!");
     navigate("/");
   };
 
   return (
     <div className="navbar">
       <Link to={"/"}>
-        <img src={assets.logo} alt="" className="logo" />
+        <img src={assets.sushLogo} alt="" className="logo" />
       </Link>
       <ul className="navbar-menu">
         <Link
@@ -74,6 +75,12 @@ function Navbar({setShowLogin}) {
           <div className="navbar-profile">
             <img src={assets.profile_icon} alt="" />
             <ul className="nav-profile-dropdown">
+              <li>
+                <img src={assets.profile_icon} alt="" />
+
+                <p>{name}</p>
+              </li>
+              <hr />
               <li>
                 <img src={assets.bag_icon} alt="" />
                 <Link to={"/myorders"}>

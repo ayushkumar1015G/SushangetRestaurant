@@ -51,6 +51,11 @@
   border: none;
 }
 
+.footer-logo-img {
+  border-radius: 60%;
+  width: 100px;
+}
+
 @media (max-width: 750px) {
   .footer-content {
     display: flex;

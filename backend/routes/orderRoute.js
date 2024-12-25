@@ -5,6 +5,7 @@ import {
   userOrders,
   verifyOrder,
   listOrder,
+  removeOrder,
   updateOrderStatus,
 } from "../controllers/orderController.js";
 
@@ -15,4 +16,5 @@ orderRouter.post("/verify", verifyOrder);
 orderRouter.post("/userorders", userOrders);
 orderRouter.get("/list", listOrder);
 orderRouter.post("/status", updateOrderStatus);
+orderRouter.post("/remove", removeOrder);
 export default orderRouter;
