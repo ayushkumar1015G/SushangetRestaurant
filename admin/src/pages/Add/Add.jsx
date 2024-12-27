@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./Add.css";
 import {assets} from "../../assets/assets";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {useLocation} from "react-router-dom"; // Import useLocation
 
 const Add = ({url}) => {
+  const location = useLocation();
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -14,6 +16,20 @@ const Add = ({url}) => {
   });
   const [isCustom, setIsCustom] = useState(false);
 
+  useEffect(() => {
+    if (location.state) {
+      const item = location.state;
+      setData({
+        id:item._id,
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        category: item.category,
+      });
+      setImage(item.image); // Set image if passed
+    }
+  }, [location.state]);
+
   const onchangeHandler = (event) => {
     const {name, value} = event.target;
     setData((prevData) => ({...prevData, [name]: value}));
@@ -22,13 +38,18 @@ const Add = ({url}) => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+    formData.append("id",data.id);
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", data.price);
     formData.append("category", data.category);
     formData.append("image", image);
 
-    const response = await axios.post(`${url}/api/food/add`, formData);
+    const apiUrl = location.state
+      ? `${url}/api/food/update` // Update API for editing
+      : `${url}/api/food/add`; // Add API for adding new item
+
+    const response = await axios.post(apiUrl, formData);
     if (response.data.success) {
       setData({
         name: "",
@@ -51,7 +72,13 @@ const Add = ({url}) => {
           <p>Upload Image</p>
           <label htmlFor="image">
             <img
-              src={image ? URL.createObjectURL(image) : assets.upload_area}
+              src={
+                image
+                  ? typeof image === "string"
+                    ? `${url}/images/${image}`
+                    : URL.createObjectURL(image)
+                  : assets.upload_area
+              }
               alt=""
             />
           </label>
@@ -61,8 +88,7 @@ const Add = ({url}) => {
             }}
             type="file"
             id="image"
-            hidden
-            required
+            hidden={!location.state}
           />
         </div>
 
@@ -143,7 +169,7 @@ const Add = ({url}) => {
         </div>
 
         <button type="submit" className="add-btn">
-          ADD
+          {location.state ? "UPDATE" : "ADD"} {/* Update button text */}
         </button>
       </form>
     </div>
