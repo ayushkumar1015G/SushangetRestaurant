@@ -19,5 +19,5 @@ lerna-debug.log*
 *.sw?
 
 # Add .env and node_modules to ignore
-.env
 node_modules
+.env
