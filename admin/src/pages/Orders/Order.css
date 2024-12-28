@@ -63,3 +63,17 @@
     font-size: 10px;
   }
 }
+
+.Heading,.date-category {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter{
+  background-color: #ffe8e4;
+  border: 1px solid tomato;
+  width: max(10vw, 120px);
+  outline: none;
+  padding: 5px;
+  border-radius: 5px;
+}
