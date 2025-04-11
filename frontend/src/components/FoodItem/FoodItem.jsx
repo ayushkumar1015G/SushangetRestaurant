@@ -1,10 +1,19 @@
 import {useContext} from "react";
+import {useNavigate} from "react-router-dom"; // Import useNavigate for redirection
 import {assets} from "../../assets/assets.js";
 import "./FoodItem.css";
 import {StoreContext} from "../../context/StoreContext";
-// eslint-disable-next-line react/prop-types
+
 function FoodItem({id, name, price, description, image}) {
   const {url, cartItems, addToCart, removeFromCart} = useContext(StoreContext);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to handle Buy button click
+  const handleBuyNow = () => {
+    addToCart(id); // Add item to cart
+    navigate("/cart"); // Redirect to cart page
+  };
+
   return (
     <div>
       <div className="food-item">
@@ -44,7 +53,11 @@ function FoodItem({id, name, price, description, image}) {
             <img src={assets.rating_starts} alt="" />
           </div>
           <p className="food-item-description">{description}</p>
-          <p className="food-item-price">${price}</p>
+          <p className="food-item-price">₹{price}</p>
+          {/* Buy Now Button */}
+          <button className="buy-now-btn" onClick={handleBuyNow}>
+            Buy Now
+          </button>
         </div>
       </div>
     </div>

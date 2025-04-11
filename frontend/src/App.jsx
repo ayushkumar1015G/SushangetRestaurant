@@ -10,6 +10,7 @@ import LoginPopup from "./components/LoginPopup/LoginPopup.jsx";
 import {useState} from "react";
 import Verify from "./pages/Verify/Verify.jsx";
 import MyOrders from "./pages/MyOrders/MyOrders.jsx";
+import ResetPassword from "./pages/ReserPassword/ResetPassword.jsx";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </div>
       <Footer />

@@ -61,7 +61,7 @@ const PlaceOrder = () => {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID,
           amount: response.data.data.amount, // Amount in paise
           currency: response.data.data.currency,
-          name: "Anurag's Store",
+          name: "Sushangat's Store",
           description: "Order Payment",
           order_id: response.data.data.id, // Order ID from backend
           handler: async (paymentResponse) => {

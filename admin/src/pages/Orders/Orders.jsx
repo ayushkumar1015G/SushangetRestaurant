@@ -95,7 +95,7 @@ const Orders = ({ url }) => {
     <div className="order add">
       <div className="Heading">
         <h3>All Orders</h3>
-        <h4>Grand Total: ${grandTotal.toFixed(2)}</h4>
+        <h4>Grand Total: ₹{grandTotal.toFixed(2)}</h4>
         <br />
         <div className="filter-section">
           <label htmlFor="filter">Filter by Status: </label>
@@ -132,7 +132,7 @@ const Orders = ({ url }) => {
             <div key={date} className="order-date-section">
               <div className="date-category">
                 <h4>{date}</h4>
-                <h4>- Total: ${dailyTotal.toFixed(2)}</h4>
+                <h4>- Total: ₹{dailyTotal.toFixed(2)}</h4>
               </div>
               {filteredOrders.map((order, index) => (
                 <div key={index} className="order-item">
@@ -141,7 +141,7 @@ const Orders = ({ url }) => {
                     <p className="order-item-food">
                       {order.items.map(
                         (item, idx) =>
-                          `${item.name} x ${item.quantity}$${
+                          `${item.name} x ${item.quantity}₹${
                             idx === order.items.length - 1 ? "" : ", "
                           }`
                       )}
@@ -158,7 +158,7 @@ const Orders = ({ url }) => {
                     <p className="order-item-phone">{order.address.phone}</p>
                   </div>
                   <p className="">Items : {order.items.length}</p>
-                  <p>${order.amount}</p>
+                  <p>₹{order.amount}</p>
                   <select
                     onChange={(event) => statusHandler(event, order._id)}
                     value={order.status}

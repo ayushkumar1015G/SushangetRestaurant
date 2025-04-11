@@ -6,10 +6,10 @@ function Header() {
       <div className="header-contents">
         <h2>Order Your Favorite Food here.</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, beatae
-          ullam id delectus dolorum quaerat molestias cupiditate labore et
-          veritatis, a expedita optio. In odio doloremque sunt nobis neque
-          eligendi?
+        Welcome to Susangat, where purity meets flavor! We serve pure
+        vegetarian, Sattvik cuisine crafted with fresh, natural ingredients to
+        nourish your body and soul. Enjoy wholesome meals and refreshing juices
+        in a serene and healthy dining environment.
         </p>
         <a href="#explore-menu">View menu</a>
       </div>

@@ -1,15 +1,30 @@
 import "./ExploreMenu.css";
-import {menu_list} from "../../assets/assets.js";
-function ExploreMenu({category, setCategory}) {
+import { menu_list } from "../../assets/assets.js";
+function ExploreMenu({ category, setCategory }) {
   return (
     <div className="explore-menu" id="explore-menu">
       <h1>Explore our menu</h1>
       <p className="explore-menu-text">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est autem amet
-        enim voluptates non rem distinctio nobis numquam quidem, placeat earum
-        tempora repellendus ab, eligendi exercitationem debitis nisi?
-        Reiciendis, veritatis.
+        – A delightful journey of pure, Sattvik flavors!
+        <div style={{ marginLeft: "60px" }}>
+          <ul>
+            <li>
+              Wholesome traditional dishes prepared with fresh, natural
+              ingredients
+            </li>
+            <li>Refreshing juices to revitalize and nourish your body</li>
+            <li>
+              Thoughtfully curated vegetarian options promoting balance and
+              well-being
+            </li>
+            <li>
+              Pure and delicious flavors crafted to enhance your dining
+              experience
+            </li>
+          </ul>
+        </div>
       </p>
+
       <div className="explore-menu-list">
         {menu_list.map((item, index) => {
           return (
